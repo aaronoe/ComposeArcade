@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import de.aaronoe.composegames.common.sudoku.model.Cell
 import de.aaronoe.composegames.common.sudoku.model.CellSelectionState
 import de.aaronoe.composegames.common.sudoku.utils.Border
+import de.aaronoe.composegames.common.sudoku.utils.SudokuColors
 import de.aaronoe.composegames.common.sudoku.utils.border
 
 private val border = Border(strokeWidth = 1.dp, Color.Gray)
@@ -44,7 +45,11 @@ fun SudokuCell(
         contentAlignment = Alignment.Center
     ) {
         if (cell.selection != null) {
-            Text(text = cell.selection.toString(), fontSize = MaterialTheme.typography.h5.fontSize, color = Color.Black)
+            Text(
+                text = cell.selection.toString(),
+                fontSize = MaterialTheme.typography.h5.fontSize,
+                color = if (cell.preset) Color.Black else SudokuColors.NumberSelectionColor
+            )
         } else if (cell.notes.isNotEmpty()) {
             CellNotesGrid(containerSize = maxWidth, notes = cell.notes)
         }

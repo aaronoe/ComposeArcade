@@ -11,14 +11,18 @@ import de.aaronoe.composegames.common.sudoku.viewmodel.GameViewModel
 import de.aaronoe.composegames.utils.mavericks.collectAsState
 
 @Composable
-fun SudokuGame(viewModel: GameViewModel) {
+fun SudokuGame(
+    viewModel: GameViewModel,
+    backToMenuAction: () -> Unit
+) {
     val state by viewModel.collectAsState()
 
     GameStateDialogs(
         isGameOver = state.isGameOver,
         isGameComplete = state.isGameComplete,
         mistakes = state.mistakes,
-        resetGameAction = viewModel::resetGame
+        resetGameAction = viewModel::resetGame,
+        backToMenuAction = backToMenuAction
     )
 
     BoxWithConstraints(
@@ -81,7 +85,8 @@ private fun GameStateDialogs(
     isGameOver: Boolean,
     isGameComplete: Boolean,
     mistakes: Int,
-    resetGameAction: () -> Unit
+    resetGameAction: () -> Unit,
+    backToMenuAction: () -> Unit
 ) {
     if (isGameOver) {
         GameOverDialog(
@@ -97,7 +102,7 @@ private fun GameStateDialogs(
             title = "Game Complete",
             text = null,
             confirmText = "Back to menu",
-            confirmAction = resetGameAction
+            confirmAction = backToMenuAction
         )
     }
 }

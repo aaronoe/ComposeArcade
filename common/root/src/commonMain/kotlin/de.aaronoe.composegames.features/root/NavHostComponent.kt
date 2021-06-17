@@ -39,7 +39,7 @@ class NavHostComponent(
     private fun createScreenComponent(config: Config, componentContext: ComponentContext): Component {
         return when (config) {
             Config.Home -> HomeComponent(::navigateSudoku, componentContext)
-            is Config.SudokuGame -> SudokuComponent(config.difficulty, componentContext)
+            is Config.SudokuGame -> SudokuComponent(config.difficulty, componentContext, router::pop)
         }
     }
 

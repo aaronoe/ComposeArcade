@@ -10,14 +10,15 @@ import de.aaronoe.composegames.utils.extensions.getViewModel
 
 class SudokuComponent(
     private val gameDifficulty: GameDifficulty,
-    private val componentContext: ComponentContext
+    private val componentContext: ComponentContext,
+    private val backToMenuAction: () -> Unit
 ) : Component, ComponentContext by componentContext {
 
     private val viewModel = getViewModel { GameViewModel(gameDifficulty) }
 
     @Composable
     override fun render() {
-        SudokuGame(viewModel = viewModel)
+        SudokuGame(viewModel = viewModel, backToMenuAction = backToMenuAction)
     }
 
 }
