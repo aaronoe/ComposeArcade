@@ -6,18 +6,18 @@ Most code is shared between Android & Desktop using Kotlin Multiplatform and [Je
 ![Alt text](screenshots/sudoku-demo.png?raw=true "Demo running on Android & Ubuntu")
 
 
-###This example supports the following targets: 
+### This example supports the following targets: 
 - `Android` (Compose)
 - `JVM` (Compose - Win / Linux / MacOS)
 
-###Libraries used:
+### Libraries used:
 - [Jetpack Compose](https://github.com/JetBrains/compose-jb) - shared UI
 - [Decompose](https://github.com/arkivanov/Decompose) - navigation and lifecycle
 - [Mavericks](https://github.com/airbnb/mavericks) - state management using MVI. For this project I created a 
   minimalistic multi-platform ViewModel implementation using MavericksStateStore.
 - [Sudoku Game Logic](https://github.com/a11n/sudoku) A Sudoku generator and solver, ported to Kotlin multi-platform.
 
-###There are multiple modules:
+### There are multiple modules:
 - `:common:sudoku` - displays a list of todo items and a text field
 - `:common:utils` - some shared utilities, including the state management classes
 - `:common:root` - UI entrypoint and navigation logic
@@ -27,7 +27,7 @@ Most code is shared between Android & Desktop using Kotlin Multiplatform and [Je
 
 The root module is integrated into Android and Desktop apps.
 
-###Features:
+### Features:
 - 99% of the code is shared: data, business logic, presentation, navigation and UI
 - View state is preserved when navigating between screens, Android configuration change, etc.
 - Model-View-Intent (aka MVI) architectural pattern
