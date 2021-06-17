@@ -1,6 +1,5 @@
 package de.aaronoe.composegames.common.sudoku.views
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -53,7 +52,7 @@ fun SudokuCell(
 }
 
 @Composable
-fun CellNotesGrid(containerSize: Dp, notes: Set<Int>) {
+private fun CellNotesGrid(containerSize: Dp, notes: Set<Int>) {
     val size = containerSize / 3
 
     Row {
@@ -65,9 +64,7 @@ fun CellNotesGrid(containerSize: Dp, notes: Set<Int>) {
                     Text(
                         text = if (number in notes) number.toString() else "",
                         textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .size(size)
-                            .animateContentSize(),
+                        modifier = Modifier.size(size),
                         fontSize = 10.sp,
                         color = Color.Black
                     )

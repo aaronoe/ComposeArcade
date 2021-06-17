@@ -1,4 +1,4 @@
-package example.todo.android
+package de.aaronoe.composegames.android
 
 import android.os.Bundle
 import androidx.activity.compose.setContent

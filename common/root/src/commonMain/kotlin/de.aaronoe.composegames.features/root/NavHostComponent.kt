@@ -5,15 +5,11 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.*
 import com.arkivanov.decompose.extensions.compose.jetbrains.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.animation.child.slide
 import com.arkivanov.decompose.extensions.compose.jetbrains.asState
-import com.arkivanov.decompose.pop
-import com.arkivanov.decompose.push
-import com.arkivanov.decompose.router
 import com.arkivanov.decompose.statekeeper.Parcelable
 import com.arkivanov.decompose.statekeeper.Parcelize
 import de.aaronoe.composegames.common.sudoku.SudokuComponent
@@ -53,8 +49,10 @@ class NavHostComponent(
 
     @Composable
     override fun render() {
+        val routerState by router.state.asState()
+
         Scaffold(
-            topBar = { GameAppBar() }
+            topBar = { GameAppBar(routerState, router::pop) }
         ) {
             Children(
                 routerState = router.state,
@@ -66,10 +64,12 @@ class NavHostComponent(
     }
 
     @Composable
-    private fun GameAppBar() {
-        val routerState by router.state.asState()
-        val isRoot by derivedStateOf { routerState.backStack.isEmpty() }
-        val title by derivedStateOf { routerState.activeChild.configuration.title }
+    private fun GameAppBar(
+        routerState: RouterState<Config, Component>,
+        onBackClick: () -> Unit
+    ) {
+        val isRoot = routerState.backStack.isEmpty()
+        val title = routerState.activeChild.configuration.title
 
         if (isRoot) {
             TopAppBar(
@@ -78,15 +78,12 @@ class NavHostComponent(
         } else {
             TopAppBar(
                 title = { Crossfade(title) { Text(it) } },
-                navigationIcon = { BackButton() }
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(Icons.Filled.ArrowBack, contentDescription = null)
+                    }
+                }
             )
-        }
-    }
-
-    @Composable
-    private fun BackButton() {
-        IconButton(onClick = { router.pop() }) {
-            Icon(Icons.Filled.ArrowBack, contentDescription = null)
         }
     }
 }

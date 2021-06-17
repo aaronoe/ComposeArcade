@@ -2,7 +2,7 @@ package de.aaronoe.composegames.common.sudoku.views
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.min
 import de.aaronoe.composegames.common.sudoku.model.Board
@@ -10,17 +10,18 @@ import de.aaronoe.composegames.common.sudoku.model.CellCoordinates
 import de.aaronoe.composegames.common.sudoku.model.CellSelectionState
 import de.aaronoe.composegames.common.sudoku.model.getCell
 import de.aaronoe.composegames.common.sudoku.viewmodel.GameState
-import de.aaronoe.composegames.common.sudoku.viewmodel.GameViewModel
-import de.aaronoe.composegames.utils.mavericks.collectAsState
 
 private const val CellCount = 9
 
 @Composable
-fun SudokuField(viewModel: GameViewModel) {
-    val selection by viewModel.collectAsState(GameState::selection)
-    val board by viewModel.collectAsState(GameState::board)
-
-    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+fun SudokuField(
+    gameState: GameState,
+    onClickCell: (CellCoordinates) -> Unit
+) {
+    BoxWithConstraints(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.TopCenter
+    ) {
         val size = min(maxWidth, maxHeight)
 
         Column(Modifier.size(size = size)) {
@@ -29,14 +30,12 @@ fun SudokuField(viewModel: GameViewModel) {
                     repeat(CellCount) { col ->
                         Box(modifier = Modifier.size(size / CellCount)) {
                             val coordinates: CellCoordinates = row to col
-                            val state = getSelectionState(board, selection, coordinates)
+                            val state = getSelectionState(gameState.board, gameState.selection, coordinates)
 
                             SudokuCell(
-                                cell = board.getCell(coordinates),
+                                cell = gameState.board.getCell(coordinates),
                                 selectionState = state,
-                                onClick = {
-                                    viewModel.setSelection(coordinates)
-                                }
+                                onClick = { onClickCell(coordinates) }
                             )
                         }
                     }

@@ -1,4 +1,4 @@
-package example.todo.android
+package de.aaronoe.composegames.android
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

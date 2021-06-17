@@ -17,6 +17,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import de.aaronoe.composegames.common.sudoku.utils.SudokuColors
 import de.aaronoe.composegames.common.sudoku.viewmodel.GameInputMode
@@ -34,35 +35,30 @@ fun GameActions(viewModel: GameViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            GameActionButton(text = "Undo", icon = Icons.Filled.ArrowBack) {
-                viewModel.undoLastStep()
-            }
-
-            GameActionButton(text = "Erase", Icons.Filled.Delete) {
-                viewModel.eraseField()
-            }
+            GameActionButton(text = "Undo", icon = Icons.Filled.ArrowBack, onClick = viewModel::undoLastStep)
+            GameActionButton(text = "Erase", icon = Icons.Filled.Delete, onClick = viewModel::eraseField)
 
             IconToggleButton(
                 checked = isTakingNotes,
                 onCheckedChange = { viewModel.toggleInputMode() }
             ) {
-                val color =
-                    if (isTakingNotes) SudokuColors.NumberSelectionColor else SudokuColors.GameActionsColor
+                val color = if (isTakingNotes) SudokuColors.NumberSelectionColor else SudokuColors.GameActionsColor
                 val animatedColor by animateColorAsState(targetValue = color)
 
                 CompositionLocalProvider(LocalContentColor provides animatedColor) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
                         Icon(Icons.Filled.Info, contentDescription = "Notes")
-                        Text(text = "Notes")
+                        Text(text = "Notes", textAlign = TextAlign.Center)
                     }
                 }
             }
 
-            GameActionButton(text = "Hint", icon = Icons.Filled.CheckCircle) {
-                viewModel.fillHint()
-            }
+            GameActionButton(text = "Hint", icon = Icons.Filled.CheckCircle, onClick = viewModel::fillHint)
         }
     }
 }

@@ -14,6 +14,8 @@ class GameViewModel(
 ) : MavericksViewModel<GameState>(GameState()) {
 
     init {
+        setState { copy(difficulty = gameDifficulty) }
+
         stopwatchFlow(updateInterval = 1000)
             .onEach {
                 setState { copy(elapsedTime = it) }

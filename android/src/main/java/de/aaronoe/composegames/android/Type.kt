@@ -1,4 +1,4 @@
-package example.todo.android
+package de.aaronoe.composegames.android
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

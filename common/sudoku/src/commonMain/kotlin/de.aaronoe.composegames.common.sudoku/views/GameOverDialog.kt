@@ -9,6 +9,7 @@ fun GameOverDialog(
     confirmText: String,
     confirmAction: () -> Unit
 ) {
+    // TODO: figure out how to use dialogs on desktop
     /*AlertDialog(
         modifier = Modifier.fillMaxWidth(),
         onDismissRequest = {},
