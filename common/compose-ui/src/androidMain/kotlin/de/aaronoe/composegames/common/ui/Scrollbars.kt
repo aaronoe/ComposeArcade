@@ -1,4 +1,4 @@
-package example.todo.common.ui
+package de.aaronoe.composegames.common.ui
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
