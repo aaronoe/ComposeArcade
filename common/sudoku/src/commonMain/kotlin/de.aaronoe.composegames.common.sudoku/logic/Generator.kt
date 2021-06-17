@@ -1,3 +1,5 @@
+// Copyright (c) 2015 André Diermann
+
 package de.aaronoe.composegames.common.sudoku.logic
 
 import kotlin.random.Random
