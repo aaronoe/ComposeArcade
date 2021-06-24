@@ -2,8 +2,6 @@ package de.aaronoe.composegames.features.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -62,7 +60,7 @@ class HomeComponent(
     @Composable
     private fun NewGameBottomSheet(onSelected: (GameDifficulty) -> Unit) {
         Column {
-            GameDifficultySelectionCell(label = "Easy", icon = Icons.Default.Info) {
+            GameDifficultySelectionCell(label = "Easy", icon = Icons.Filled.Info) {
                 onSelected(GameDifficulty.Easy)
             }
             GameDifficultySelectionCell(label = "Medium", icon = Icons.Filled.Info) {
